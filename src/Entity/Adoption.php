@@ -2,19 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\AdoptionRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Trait\CreatedAtTrait;
+use App\Repository\AdoptionRepository;
 
 #[ORM\Entity(repositoryClass: AdoptionRepository::class)]
 class Adoption
 {
+
+    use CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\OneToOne(inversedBy: 'adoption', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -24,21 +26,14 @@ class Adoption
     #[ORM\JoinColumn(nullable: false)]
     private ?Users $user = null;
 
+    public function __construct() 
+    {
+        $this->created_at = new DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
     }
 
     public function getAnimal(): ?Animals
