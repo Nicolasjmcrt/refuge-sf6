@@ -4,6 +4,29 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Animal Shelter</h1>
-	<p>Bienvenue sur le refuge</p>
+	<main class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>Animal Shelter</h1>
+				<p>Bienvenue sur le refuge</p>
+			</div>
+
+			{% for race in races %}
+				{% if race.parent == null %}
+					<div class="col-12 mt-3">
+						<h2>{{ race.name }}</h2>
+					</div>
+				{% else %}
+					<div class="col-4 mt-3">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">{{ race.name }}</h5>
+								<a href="{{ path('races_list', {slug: race.slug}) }}" class="btn btn-primary">Voir les animaux</a>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</section>
+	</main>
 {% endblock %}

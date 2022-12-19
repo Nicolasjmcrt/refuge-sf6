@@ -22,6 +22,9 @@ class Races
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
+    #[ORM\Column(type: 'integer')]
+    private ?string $raceOrder = null;
+
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'races')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?self $parent = null;
@@ -51,6 +54,18 @@ class Races
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getRaceOrder(): ?int
+    {
+        return $this->raceOrder;
+    }
+
+    public function setRaceOrder(int $raceOrder): self 
+    {
+        $this->raceOrder = $raceOrder;
 
         return $this;
     }
