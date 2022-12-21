@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Animals;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Animals>
@@ -19,6 +20,42 @@ class AnimalsRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Animals::class);
+    }
+
+    public function findAnimalsPaginated(int $page, string $slug, int $limit = 6): array
+    {
+        $limit = abs($limit);
+
+        $result = [];
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('r', 'a')
+            ->from('App\Entity\Animals', 'a')
+            ->join('a.races', 'r')
+            ->where("r.slug = '$slug'")
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit);
+
+            $paginator = new Paginator($query);
+            $data = $paginator->getQuery()->getResult();
+
+        // On vérifie qu'on a bien des données
+
+        if (empty($data)) {
+            $data = [];
+        }
+
+        // on calcule le nombre de pages
+        $pages = ceil($paginator->count() / $limit);
+
+        // On rempli le tableau de résultat
+        $result['data'] = $data;
+        $result['pages'] = $pages;
+        $result['page'] = $page;
+        $result['limit'] = $limit;
+
+        return $result;
+
     }
 
     public function save(Animals $entity, bool $flush = false): void

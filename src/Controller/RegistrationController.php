@@ -142,9 +142,9 @@ class RegistrationController extends AbstractController
         $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
         $mail->sendMail(
-            'no-reply@monsite.net',
+            'no-reply@animals-shelter.com',
             $user->getEmail(),
-            'Confirmation de votre inscription sur le site Refuge Shelter',
+            'Confirmation de votre inscription sur le site Animals Shelter',
             'register',
             [
                 'user' => $user,

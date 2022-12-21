@@ -1,24 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des {{ races.name }}{% endblock %}
+{% block title %}Liste des
+	{{ races.name }}
+{% endblock %}
 
 {% block body %}
-    <main class="container">
-        <section class="row">
-            <div class="col-12">
-                <h1>Liste des {{ races.name }}</h1>
-            </div>
-            {% for animal in animals %}
-                <div class="col-3 mb-3">
-                    <article class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title text-center">{{ animal.name }}</h2>
-                            <p class="card-text text-center">{{ animal.description }}</p>
-                           <a href="#" class="btn btn-primary">voir les détails</a> 
-                        </div>
-                    </article>
-                </div>
-            {% endfor %}
-        </section>
-    </main>
+	<main class="container">
+		<section class="row d-flex justify-content-center">
+			<div class="col-12">
+				<h1>Liste des
+					{{ races.name }}</h1>
+			</div>
+			{% for animal in animals.data %}
+				<div class="col-12 col-md-6 mb-3">
+					<article class="card h-100">
+						<div class="card-body card-animals">
+							<h2 class="card-title text-center">{{ animal.name }}</h2>
+							<p class="card-text">{{ animal.description }}</p>
+							<a href="{{ path('animals_details', {slug: animal.slug}) }}" class="btn btn-primary">voir les détails</a>
+						</div>
+					</article>
+				</div>
+			{% endfor %}
+			{% set path = 'races_list' %}
+			{% set slug = races.slug %}
+			{% set pages = animals.pages %}
+			{% set currentPage = animals.page %}
+			{% include "_partials/_pagination.html.twig" %}
+		</section>
+	</main>
 {% endblock %}

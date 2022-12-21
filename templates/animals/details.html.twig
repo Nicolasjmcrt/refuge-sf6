@@ -1,7 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails de {{ animal.name }}{% endblock %}
+{% block title %}Détails de
+	{{ animal.name }}
+{% endblock %}
 
 {% block body %}
-<h1>Détails de {{ animal.name }}</h1>
+	<main class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>{{ animal.name }}</h1>
+			</div>
+			<div class="col-6">
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+					<div class="carousel-indicators">
+                    {% for iteration in 1.. animal.images|length %}
+                        
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration - 1 }}" {{ (loop.first ) ? 'class="active" aria-current="true"' : '' }} aria-label="Slide {{ iteration }}"></button>
+                    {% endfor %}
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+					</div>
+					<div class="carousel-inner">
+						{% for image in animal.images %}
+							<div class="carousel-item {{ (loop.first ) ? 'active' : ''}}">
+								<img src="{{ asset('assets/uploads/') ~ image.name }}" class="d-block w-100" alt="{{ animal.name }}">
+							</div>
+						{% endfor %}
+						
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+			<div class="col-6">
+				<p>{{ animal.description }}</p>
+				<p>Race :
+					{{ animal.races.name }}</p>
+				<p>Sexe :
+					{{ animal.sex.name }}</p>
+				<p>Statut :
+					{{ animal.status.name }}</p>
+			</div>
+		</section>
+	</main>
 {% endblock %}

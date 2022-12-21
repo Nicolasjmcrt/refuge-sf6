@@ -1,0 +1,30 @@
+{% if pages > 1 %}
+<h1>Mother fucker !!!!!</h1>
+	<nav>
+		<ul class="pagination">
+			{% if currentPage > 1 %}
+				<li class="page-item">
+					<a class="page-link" href="{{ path(path, {slug: slug, page : currentPage - 1}) }}">&lt;</a>
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+					<a class="page-link">&lt;</a>
+				</li>
+			{% endif %}
+		</li>
+		{% for page in 1..pages %}
+			<li class="page-item {{ (page == currentPage)? 'active' : '' }}">
+				<a class="page-link" href="{{ path(path, {slug: slug, page : page}) }}">{{ page }}</a>
+			</li>
+		{% endfor %}
+		{% if currentPage < pages %}
+			<li class="page-item">
+				<a class="page-link" href="{{ path(path, {slug: slug, page : currentPage + 1}) }}">&gt;</a>
+			</li>
+		{% else %}
+			<li class="page-item disabled">
+				<a class="page-link">&gt;</a>
+			</li>
+		{% endif %}
+	</ul>
+</nav>{% endif %}
