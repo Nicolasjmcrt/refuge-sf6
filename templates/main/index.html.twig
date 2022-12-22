@@ -7,14 +7,13 @@
 	<main class="container">
 		<section class="row">
 			<div class="col-12">
-				<h1>Animals Shelter</h1>
-				<p>Bienvenue sur le refuge</p>
+				<h1>Bienvenue sur le refuge</h1>
 			</div>
 
 			{% for race in races %}
 				{% if race.parent == null %}
 					<div class="col-12 mt-3">
-						<h2>{{ race.name }}</h2>
+						<h3>{{ race.name }}</h3>
 					</div>
 				{% else %}
 					<div class="col-12 col-md-4 mt-3">

@@ -50,6 +50,7 @@ class AnimalsFixtures extends Fixture implements DependentFixtureInterface
             SexFixtures::class,
             StatusFixtures::class,
             RacesFixtures::class,
+            RefugeFixtures::class,
         ];
     }
 }

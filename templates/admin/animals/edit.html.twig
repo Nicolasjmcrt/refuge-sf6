@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration des animaux{% endblock %}
+
+{% block body %}
+<main class="container">
+		<section class="row">
+			<div class="col-12">
+                <h1>Modifer un animal</h1>
+                {% include "admin/animals/_form.html.twig" with {'button_label':'Modifier'} %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

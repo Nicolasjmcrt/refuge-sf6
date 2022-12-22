@@ -1,0 +1,9 @@
+{{ form_start(animalForm) }}
+    {{ form_row(animalForm.name) }}
+    {{ form_row(animalForm.description) }}
+    {{ form_row(animalForm.races) }}
+    {{ form_row(animalForm.sex) }}
+    {{ form_row(animalForm.status) }}
+    {{ form_row(animalForm.refuge) }}
+    <button type="submit" class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(animalForm) }}
