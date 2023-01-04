@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-light">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="{{ path('main') }}">
-		<img src="{{ asset('assets/uploads/animals-shelter-logo.webp') }}" alt="Logo" width="" height="60" class="d-inline-block align-text-top"></a>
+			<img src="{{ asset('assets/uploads/animals-shelter-logo.webp') }}" alt="Logo" width="" height="60" class="d-inline-block align-text-top"></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -10,6 +10,11 @@
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="{{ path('main') }}">Accueil</a>
 				</li>
+				{% if is_granted('ROLE_ADMIN') %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('admin') }}">ADMIN</a>
+					</li>
+				{% endif %}
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						Les animaux
@@ -23,12 +28,14 @@
 						</li>
 						<li><hr class="dropdown-divider"></li>
 						<li>
-							<a class="dropdown-item" href="{{ path('admin_animals_add') }}"><strong>Ajouter un animal</strong></a>
+							<a class="dropdown-item" href="{{ path('animals_add') }}">
+								<strong>Déclarer une perte d'animal</strong>
+							</a>
 						</li>
 					</ul>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Testimonies</a>
+					<a class="nav-link" href="#">Témoignages</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link">Les refuges</a>
@@ -46,7 +53,7 @@
 					<li>
 						<a class="nav-link" href="{{ path('app_login') }}">Me connecter</a>
 					</li>
-                    <li>
+					<li>
 						<a class="nav-link" href="{{ path('app_register') }}">M'inscrire</a>
 					</li>
 				{% endif %}

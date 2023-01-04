@@ -25,6 +25,11 @@ class SecurityController extends AbstractController
         //     return $this->redirectToRoute('target_path');
         // }
 
+         // Si l'utilisateur est admin, on le redirige vers la page d'administration
+         if ($this->getUser() && $this->getUser()->getRoles() === ['ROLE_ADMIN']) {
+            return $this->redirectToRoute('admin');
+        }
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -34,6 +39,7 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error
         ]);
+
     }
 
     #[Route(path: '/logout', name: 'app_logout')]

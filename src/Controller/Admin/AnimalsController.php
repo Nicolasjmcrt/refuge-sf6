@@ -21,40 +21,40 @@ class AnimalsController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    // #[Route('/add', name: 'add')]
+    // public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    // {
+    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // On créé un nouvel animal
-        $animal = new Animals();
+    //     // On créé un nouvel animal
+    //     $animal = new Animals();
 
-        // On créé le formulaire
-        $animalForm = $this->createForm(AnimalsFormType::class, $animal);
+    //     // On créé le formulaire
+    //     $animalForm = $this->createForm(AnimalsFormType::class, $animal);
 
-        // On récupère les données du formulaire
-        $animalForm->handleRequest($request);
+    //     // On récupère les données du formulaire
+    //     $animalForm->handleRequest($request);
 
-        // On vérifie si le formulaire est soumis et valide
-        if ($animalForm->isSubmitted() && $animalForm->isValid()) {
-            // On génère le slug
-            $slug = $slugger->slug($animal->getName())->lower();
-            $animal->setSlug($slug);
+    //     // On vérifie si le formulaire est soumis et valide
+    //     if ($animalForm->isSubmitted() && $animalForm->isValid()) {
+    //         // On génère le slug
+    //         $slug = $slugger->slug($animal->getName())->lower();
+    //         $animal->setSlug($slug);
 
-            // On enregistre l'animal
-            $em->persist($animal);
-            $em->flush();
+    //         // On enregistre l'animal
+    //         $em->persist($animal);
+    //         $em->flush();
 
-            $this->addFlash('success', 'L\'animal a bien été ajouté !');
+    //         $this->addFlash('success', 'L\'animal a bien été ajouté !');
 
-            // On redirige vers la page de l'animal
-            return $this->redirectToRoute('admin_animals_index');
-        }
+    //         // On redirige vers la page de l'animal
+    //         return $this->redirectToRoute('admin_animals_index');
+    //     }
 
-        return $this->render('/admin/animals/add.html.twig', [
-            'animalForm' => $animalForm->createView()
-        ]);
-    }
+    //     return $this->render('/admin/animals/add.html.twig', [
+    //         'animalForm' => $animalForm->createView()
+    //     ]);
+    // }
 
     #[Route('/edit/{id}', name: 'edit')]
     public function edit(Animals $animal, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response

@@ -53,6 +53,9 @@ class Animals
     #[ORM\OneToOne(mappedBy: 'animal', cascade: ['persist', 'remove'])]
     private ?Sponsorships $sponsorships = null;
 
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    private ?Users $user = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -196,6 +199,18 @@ class Animals
         }
 
         $this->sponsorships = $sponsorships;
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

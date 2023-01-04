@@ -21,7 +21,9 @@ class AnimalsFormType extends AbstractType
             ->add('name', options: [
                 'label' => 'Nom de l\'animal'
             ])
-            ->add('description')
+            ->add('description', options: [
+                'label' => 'Description de l\'animal et circonstances de la perte (lieu, date, etc.)'
+            ])
             ->add('races', EntityType::class, [
                 'class' => Races::class,
                 'choice_label' => 'name',
@@ -38,16 +40,11 @@ class AnimalsFormType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Sexe'
                 ])
+
             ->add('status', EntityType::class, [
                 'class' => Status::class,
                 'choice_label' => 'name',
                 'label' => 'Statut'
-            ])
-            ->add('refuge', EntityType::class, [
-                'class' => Refuges::class,
-                'choice_label' => 'name',
-                'label' => 'Refuge',
-                'required' => false,
             ])
         ;
     }
